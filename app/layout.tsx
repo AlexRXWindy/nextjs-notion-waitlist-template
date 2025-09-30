@@ -1,44 +1,68 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
-import { Toaster } from "@/components/ui/sonner";
-import { Analytics } from "@vercel/analytics/react";
 
 const FigtreeFont = Figtree({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Next.js + Notion — Waitlist Template",
-  description:
-    "A simple Next.js waitlist template with Notion as CMS and Resend to send emails created with React Email and Upstash Redis for rate limiting. Deployed on Vercel.",
+  title: "IA Automation | Automatización Inteligente para tu Negocio",
+  description: "Transformamos procesos manuales en flujos inteligentes con IA. Automatiza ventas, marketing, soporte y más. Primera consulta gratuita.",
+  keywords: ["automatización", "inteligencia artificial", "IA", "automation", "chatbots", "marketing automation"],
+  authors: [{ name: "IA Automation" }],
+  metadataBase: new URL("https://tu-dominio.com"),
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: "https://tu-dominio.com",
+    siteName: "IA Automation",
+    title: "IA Automation | Automatización Inteligente",
+    description: "Automatiza tu negocio con inteligencia artificial. Primera consulta gratuita.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "IA Automation"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "IA Automation | Automatización Inteligente",
+    description: "Automatiza tu negocio con IA. Primera consulta gratuita.",
+    images: ["/twitter-image.png"],
+    creator: "@tu_twitter"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
+  },
+  verification: {
+    google: "tu-google-verification-code",
+  }
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <meta property="og:image" content="/opengraph-image.png" />
-      <meta property="og:image:type" content="image/png" />
-      <meta property="og:image:width" content="1280" />
-      <meta property="og:image:height" content="832" />
-      <meta
-        property="og:site_name"
-        content="Next.js + Notion — Waitlist Template"
-      />
-      <meta
-        property="og:url"
-        content="https://nextjs-notion-waitlist.vercel.app/"
-      />
-      <meta name="twitter:image" content="/twitter-image.png" />
-      <meta name="twitter:image:type" content="image/png" />
-      <meta name="twitter:image:width" content="1280" />
-      <meta name="twitter:image:height" content="832" />
+    <html lang="es" className="dark scroll-smooth" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#000000" />
+      </head>
       <body className={FigtreeFont.className}>
         {children}
-        <Toaster richColors position="top-center" />
-        <Analytics />
       </body>
     </html>
   );

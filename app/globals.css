@@ -80,3 +80,26 @@ body {
     @apply bg-accent text-yellow-200;
   }
 }
+
+/* Scrollbar personalizado */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #404040 #000000;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #525252;
+}
