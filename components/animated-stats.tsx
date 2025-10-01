@@ -1,13 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-
-const stats = [
-  { value: 100, suffix: '+', label: 'Proyectos' },
-  { value: 50000, suffix: '+', label: 'Horas Ahorradas' },
-  { value: 95, suffix: '%', label: 'Satisfacción' },
-  { value: 200, suffix: '%', label: 'ROI Promedio' }
-];
+import { useLanguage } from './LanguageProvider';
 
 function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
@@ -52,11 +46,20 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export default function AnimatedStats() {
+  const { t } = useLanguage();
+
+  const stats = [
+    { value: 100, suffix: '+', labelKey: 'projects' },
+    { value: 50000, suffix: '+', labelKey: 'hoursSaved' },
+    { value: 95, suffix: '%', labelKey: 'satisfaction' },
+    { value: 200, suffix: '%', labelKey: 'roi' }
+  ];
+
   return (
     <div className="bg-black py-16 md:py-24 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-12 md:mb-16 text-center">
-          Resultados que Hablan
+          {t('stats.title')}
         </h2>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
@@ -69,7 +72,7 @@ export default function AnimatedStats() {
                 <AnimatedNumber value={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-xs sm:text-sm text-neutral-400 leading-tight">
-                {stat.label}
+                {t(`stats.${stat.labelKey}`)}
               </div>
             </div>
           ))}

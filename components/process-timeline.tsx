@@ -2,41 +2,43 @@
 
 import { useState } from 'react';
 import { MessageSquare, Search, Code, Rocket, ArrowRight, Sparkles } from 'lucide-react';
-
-const steps = [
-  {
-    icon: MessageSquare,
-    title: 'Consulta',
-    description: 'Hablamos de tus necesidades y objetivos',
-    duration: '30 min',
-    details: ['Análisis de procesos', 'Definición de objetivos', 'Presupuesto personalizado']
-  },
-  {
-    icon: Search,
-    title: 'Análisis',
-    description: 'Evaluamos y diseñamos la solución perfecta',
-    duration: '1-2 días',
-    details: ['Mapeo de workflows', 'Selección de herramientas', 'Arquitectura técnica']
-  },
-  {
-    icon: Code,
-    title: 'Desarrollo',
-    description: 'Construimos y probamos la automatización',
-    duration: '1-4 semanas',
-    details: ['Desarrollo en n8n', 'Integraciones API', 'Testing exhaustivo']
-  },
-  {
-    icon: Rocket,
-    title: 'Deploy',
-    description: 'Lanzamiento y entrenamiento del equipo',
-    duration: '1 día',
-    details: ['Puesta en producción', 'Capacitación', 'Documentación']
-  }
-];
+import { useLanguage } from './LanguageProvider';
 
 export default function ProcessTimeline() {
+  const { t } = useLanguage();
   const [activeStep, setActiveStep] = useState(0);
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+
+  const steps = [
+    {
+      icon: MessageSquare,
+      titleKey: 'step1',
+      descKey: 'step1Desc',
+      durationKey: 'duration1',
+      details: ['detail1a', 'detail1b', 'detail1c']
+    },
+    {
+      icon: Search,
+      titleKey: 'step2',
+      descKey: 'step2Desc',
+      durationKey: 'duration2',
+      details: ['detail2a', 'detail2b', 'detail2c']
+    },
+    {
+      icon: Code,
+      titleKey: 'step3',
+      descKey: 'step3Desc',
+      durationKey: 'duration3',
+      details: ['detail3a', 'detail3b', 'detail3c']
+    },
+    {
+      icon: Rocket,
+      titleKey: 'step4',
+      descKey: 'step4Desc',
+      durationKey: 'duration4',
+      details: ['detail4a', 'detail4b', 'detail4c']
+    }
+  ];
 
   return (
     <div id="proceso" className="relative bg-black py-16 md:py-24 px-4 sm:px-6 overflow-hidden">
@@ -46,14 +48,14 @@ export default function ProcessTimeline() {
         <div className="text-center mb-12 md:mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-800 bg-neutral-950 mb-6">
             <Sparkles className="w-4 h-4 text-white" />
-            <span className="text-sm text-neutral-400">Proceso simple</span>
+            <span className="text-sm text-neutral-400">{t('process.badge')}</span>
           </div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-            Cómo Funciona
+            {t('process.title')}
           </h2>
           <p className="text-lg sm:text-xl text-neutral-400 max-w-2xl mx-auto">
-            De la idea a la automatización en 4 pasos simples
+            {t('process.subtitle')}
           </p>
         </div>
 
@@ -109,13 +111,13 @@ export default function ProcessTimeline() {
                     <h3 className={`text-xl sm:text-2xl font-bold mb-2 transition-colors duration-500 ${
                       isActive ? 'text-white' : 'text-neutral-600'
                     }`}>
-                      {step.title}
+                      {t(`process.${step.titleKey}`)}
                     </h3>
 
                     <p className={`text-xs sm:text-sm mb-3 transition-colors duration-500 ${
                       isActive ? 'text-neutral-400' : 'text-neutral-600'
                     }`}>
-                      {step.description}
+                      {t(`process.${step.descKey}`)}
                     </p>
 
                     <div className={`inline-flex px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-500 mb-4 ${
@@ -123,7 +125,7 @@ export default function ProcessTimeline() {
                         ? 'bg-white/5 text-white border border-white/20' 
                         : 'bg-transparent text-neutral-600 border border-neutral-800'
                     }`}>
-                      {step.duration}
+                      {t(`process.${step.durationKey}`)}
                     </div>
 
                     <div className={`transition-all duration-500 overflow-hidden ${
@@ -133,7 +135,7 @@ export default function ProcessTimeline() {
                         {step.details.map((detail, i) => (
                           <div key={i} className="flex items-center gap-2 text-xs text-neutral-500">
                             <ArrowRight className="w-3 h-3" />
-                            <span>{detail}</span>
+                            <span>{t(`process.${detail}`)}</span>
                           </div>
                         ))}
                       </div>
@@ -151,7 +153,7 @@ export default function ProcessTimeline() {
             className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:shadow-2xl hover:scale-105 transition-all text-sm sm:text-base"
           >
             <span className="flex items-center gap-2">
-              Empezar ahora
+              {t('process.cta')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </button>

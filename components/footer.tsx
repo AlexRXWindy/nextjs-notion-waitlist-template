@@ -1,8 +1,10 @@
 'use client';
 
-import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import { Github, Twitter, Linkedin } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 export default function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -12,7 +14,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="text-3xl font-bold text-white mb-4">IA</div>
             <p className="text-neutral-400 mb-6">
-              Automatizamos tu negocio con IA. Más tiempo para lo importante.
+              {t('footer.description')}
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center hover:border-white transition-colors">
@@ -28,26 +30,26 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">Empresa</h3>
+            <h3 className="text-white font-semibold mb-4">{t('footer.company')}</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">Sobre Nosotros</a></li>
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">Blog</a></li>
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">Contacto</a></li>
+              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">{t('footer.about')}</a></li>
+              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">{t('footer.blog')}</a></li>
+              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">{t('footer.contact')}</a></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">Legal</h3>
+            <h3 className="text-white font-semibold mb-4">{t('footer.legal')}</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">Privacidad</a></li>
-              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">Términos</a></li>
+              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">{t('footer.privacy')}</a></li>
+              <li><a href="#" className="text-neutral-400 hover:text-white transition-colors text-sm">{t('footer.terms')}</a></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-neutral-900 pt-8 text-center">
           <p className="text-neutral-500 text-sm">
-            © {currentYear} IA Automation. Todos los derechos reservados.
+            © {currentYear} IA Automation. {t('footer.rights')}
           </p>
         </div>
       </div>

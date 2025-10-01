@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 export default function Navbar() {
+  const { t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -42,13 +44,17 @@ export default function Navbar() {
           </button>
           
           <div className="hidden md:flex items-center gap-1 lg:gap-2 bg-white/5 backdrop-blur-xl rounded-full p-1 border border-white/10">
-            {['Servicios', 'Proceso', 'Nosotros'].map((item, i) => (
+            {[
+              { key: 'services', id: 'servicios' },
+              { key: 'process', id: 'proceso' },
+              { key: 'about', id: 'nosotros' }
+            ].map((item) => (
               <button
-                key={item}
-                onClick={() => scrollTo(item.toLowerCase())}
+                key={item.key}
+                onClick={() => scrollTo(item.id)}
                 className="px-4 py-2 text-neutral-300 hover:text-white hover:bg-white/10 rounded-full transition-all text-sm font-medium"
               >
-                {item}
+                {t(`navbar.${item.key}`)}
               </button>
             ))}
             <button 
@@ -56,7 +62,7 @@ export default function Navbar() {
               className="group relative px-5 py-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-semibold rounded-full hover:shadow-xl hover:shadow-purple-500/50 transition-all text-sm ml-1"
             >
               <Sparkles className="inline w-4 h-4 mr-1" />
-              Empezar
+              {t('navbar.cta')}
             </button>
           </div>
 
@@ -74,13 +80,17 @@ export default function Navbar() {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 border-t border-white/10 pt-4 bg-black/95 backdrop-blur-2xl rounded-2xl">
             <div className="flex flex-col gap-2">
-              {['Servicios', 'Proceso', 'Nosotros'].map((item) => (
+              {[
+                { key: 'services', id: 'servicios' },
+                { key: 'process', id: 'proceso' },
+                { key: 'about', id: 'nosotros' }
+              ].map((item) => (
                 <button
-                  key={item}
-                  onClick={() => scrollTo(item.toLowerCase())}
+                  key={item.key}
+                  onClick={() => scrollTo(item.id)}
                   className="text-left py-3 px-4 text-neutral-300 hover:text-white hover:bg-white/5 rounded-xl transition-all font-medium"
                 >
-                  {item}
+                  {t(`navbar.${item.key}`)}
                 </button>
               ))}
               <button 
@@ -88,7 +98,7 @@ export default function Navbar() {
                 className="mt-2 px-5 py-3 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-semibold rounded-xl text-center"
               >
                 <Sparkles className="inline w-4 h-4 mr-2" />
-                Empezar
+                {t('navbar.cta')}
               </button>
             </div>
           </div>

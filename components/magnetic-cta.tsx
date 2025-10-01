@@ -2,8 +2,10 @@
 
 import { useRef } from 'react';
 import { Sparkles } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 export default function MagneticCTA() {
+  const { t } = useLanguage();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,14 +42,14 @@ export default function MagneticCTA() {
           >
             <span className="flex items-center gap-2 md:gap-3">
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-              <span className="whitespace-nowrap">Automatiza tu negocio</span>
+              <span className="whitespace-nowrap">{t('cta.button')}</span>
               <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
             </span>
           </button>
         </div>
 
         <p className="mt-4 md:mt-6 text-sm sm:text-base text-neutral-400">
-          Únete a 100+ empresas
+          {t('cta.join')}
         </p>
       </div>
     </div>

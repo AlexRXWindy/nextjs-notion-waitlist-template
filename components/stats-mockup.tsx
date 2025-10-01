@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Activity, Zap } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 export default function StatsMockup() {
+  const { t } = useLanguage('dashboard');
   const [activeMetric, setActiveMetric] = useState(0);
 
   useEffect(() => {
@@ -14,10 +16,10 @@ export default function StatsMockup() {
   }, []);
 
   const metrics = [
-    { label: 'Tiempo Ahorrado', value: '847', unit: 'hrs/mes', change: '+45%', trend: 'up' },
-    { label: 'Workflows Activos', value: '124', unit: 'procesos', change: '+28%', trend: 'up' },
-    { label: 'Eficiencia', value: '94.2', unit: '%', change: '+12%', trend: 'up' },
-    { label: 'Costos Reducidos', value: '€8.5K', unit: '/mes', change: '-67%', trend: 'down' }
+    { labelKey: 'metric1', value: '847', unitKey: 'unit1', change: '+45%', trend: 'up' },
+    { labelKey: 'metric2', value: '124', unitKey: 'unit2', change: '+28%', trend: 'up' },
+    { labelKey: 'metric3', value: '94.2', unitKey: 'unit3', change: '+12%', trend: 'up' },
+    { labelKey: 'metric4', value: '€8.5K', unitKey: 'unit4', change: '-67%', trend: 'down' }
   ];
 
   return (
@@ -25,10 +27,10 @@ export default function StatsMockup() {
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-            Resultados Medibles en Tiempo Real
+            {t('title')}
           </h2>
           <p className="text-lg sm:text-xl text-neutral-400">
-            Dashboard interactivo con métricas de automatización
+            {t('subtitle')}
           </p>
         </div>
 
@@ -45,7 +47,7 @@ export default function StatsMockup() {
               <div className="flex-1 flex justify-center">
                 <div className="text-neutral-500 text-xs sm:text-sm flex items-center gap-2">
                   <Activity className="w-4 h-4" />
-                  <span className="hidden sm:inline">dashboard.automation.ai</span>
+                  <span className="hidden sm:inline">{t('url')}</span>
                 </div>
               </div>
             </div>
@@ -53,13 +55,13 @@ export default function StatsMockup() {
             <div className="p-4 sm:p-6 md:p-8">
               <div className="flex items-center justify-between mb-6 sm:mb-8">
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-white mb-1">Panel de Control</h3>
-                  <p className="text-xs sm:text-sm text-neutral-500">Automatización con n8n</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-1">{t('panelTitle')}</h3>
+                  <p className="text-xs sm:text-sm text-neutral-500">{t('panelSubtitle')}</p>
                 </div>
                 <div className="px-3 py-1.5 bg-green-500/10 border border-green-500/20 rounded-lg">
                   <span className="text-green-400 text-xs font-medium flex items-center gap-1">
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    En vivo
+                    {t('live')}
                   </span>
                 </div>
               </div>
@@ -89,10 +91,10 @@ export default function StatsMockup() {
                       activeMetric === index ? 'text-white' : 'text-neutral-400'
                     }`}>
                       {metric.value}
-                      <span className="text-sm sm:text-base font-normal ml-1">{metric.unit}</span>
+                      <span className="text-sm sm:text-base font-normal ml-1">{t(metric.unitKey)}</span>
                     </div>
                     
-                    <div className="text-xs text-neutral-500 mb-2">{metric.label}</div>
+                    <div className="text-xs text-neutral-500 mb-2">{t(metric.labelKey)}</div>
                     
                     <div className={`text-xs font-medium ${
                       metric.trend === 'down' ? 'text-green-400' : 'text-green-400'
@@ -109,11 +111,11 @@ export default function StatsMockup() {
 
               <div className="mt-6 sm:mt-8 p-4 sm:p-6 bg-neutral-900/30 border border-neutral-800/50 rounded-xl">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm text-neutral-400">Actividad Reciente</span>
-                  <span className="text-xs text-neutral-600">Últimas 24h</span>
+                  <span className="text-sm text-neutral-400">{t('recentActivity')}</span>
+                  <span className="text-xs text-neutral-600">{t('last24h')}</span>
                 </div>
                 <div className="space-y-3">
-                  {['Workflow de emails ejecutado', 'Datos sincronizados con CRM', 'Reporte generado automáticamente'].map((activity, i) => (
+                  {[t('activity1'), t('activity2'), t('activity3')].map((activity, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                       <span className="text-xs sm:text-sm text-neutral-300">{activity}</span>
@@ -128,7 +130,7 @@ export default function StatsMockup() {
 
         <div className="text-center mt-8 sm:mt-12">
           <p className="text-sm sm:text-base text-neutral-500">
-            Integrado con <span className="text-white font-semibold">n8n</span>, Notion, Slack y más
+            {t('integration')}
           </p>
         </div>
       </div>

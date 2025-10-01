@@ -15,10 +15,15 @@ import MagneticCTA from '@/components/magnetic-cta';
 import CTAWaitlist from '@/components/cta-waitlist';
 import Footer from '@/components/footer';
 import ScrollReveal from '@/components/scroll-reveal';
+import LanguageSelector from '@/components/LanguageSelector';
 
 export default function Home() {
   return (
     <div className="overflow-x-hidden">
+      <div className="fixed top-4 right-4 z-[9999]">
+        <LanguageSelector />
+      </div>
+      
       <LogoAnimation />
       <NeuralNetworkBg />
       <FloatingElements />

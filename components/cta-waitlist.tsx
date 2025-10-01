@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
+import { useLanguage } from './LanguageProvider';
 
 export default function CTAWaitlist() {
+  const { t } = useLanguage();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -12,23 +14,38 @@ export default function CTAWaitlist() {
   const handleSubmit = async () => {
     if (!email || !name) return;
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setSubmitted(true);
-    setLoading(false);
-    setEmail('');
-    setName('');
-    setTimeout(() => setSubmitted(false), 5000);
+    
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setEmail('');
+        setName('');
+        setTimeout(() => setSubmitted(false), 5000);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div id="contacto" className="bg-black py-24 px-6">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className="text-5xl font-bold text-white mb-6">
-          Únete a la Revolución IA
+          {t('waitlist.title')}
         </h2>
         
         <p className="text-xl text-neutral-400 mb-12">
-          Primera consulta gratuita.
+          {t('waitlist.subtitle')}
         </p>
 
         {!submitted ? (
@@ -38,14 +55,14 @@ export default function CTAWaitlist() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Tu nombre"
+                placeholder={t('waitlist.namePlaceholder')}
                 className="px-6 py-4 bg-neutral-950 border border-neutral-800 rounded-lg text-white placeholder:text-neutral-600 focus:outline-none focus:border-white transition-colors"
               />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Tu email"
+                placeholder={t('waitlist.emailPlaceholder')}
                 className="px-6 py-4 bg-neutral-950 border border-neutral-800 rounded-lg text-white placeholder:text-neutral-600 focus:outline-none focus:border-white transition-colors"
               />
             </div>
@@ -58,11 +75,11 @@ export default function CTAWaitlist() {
               {loading ? (
                 <>
                   <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                  Procesando...
+                  {t('waitlist.submitting')}
                 </>
               ) : (
                 <>
-                  Solicitar Consulta Gratuita
+                  {t('waitlist.submit')}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </>
               )}
@@ -74,10 +91,10 @@ export default function CTAWaitlist() {
               <Check className="w-8 h-8 text-black" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">
-              ¡Listo!
+              {t('waitlist.successTitle')}
             </h3>
             <p className="text-neutral-400">
-              Nos vemos pronto.
+              {t('waitlist.success')}
             </p>
           </div>
         )}

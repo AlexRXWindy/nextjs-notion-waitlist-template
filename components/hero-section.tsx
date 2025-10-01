@@ -3,11 +3,14 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, Zap, Rocket, Clock, Star } from 'lucide-react';
 import FloatingLogo from './floating-logo';
+import { useLanguage } from './LanguageProvider';
 
 export default function HeroSection() {
+  const { t } = useLanguage();
+  
   const [text, setText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const words = ['Ventas', 'Marketing', 'Soporte', 'Procesos', 'Datos'];
+  const words = [t('hero.word1'), t('hero.word2'), t('hero.word3'), t('hero.word4'), t('hero.word5')];
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -33,12 +36,12 @@ export default function HeroSection() {
     }, isDeleting ? 50 : 150);
 
     return () => clearTimeout(timeout);
-  }, [currentIndex, isDeleting, wordIndex]);
+  }, [currentIndex, isDeleting, wordIndex, words]);
 
   const stats = [
-    { value: '100+', label: 'Proyectos', icon: Rocket },
-    { value: '50K+', label: 'Horas Ahorradas', icon: Clock },
-    { value: '95%', label: 'Satisfacción', icon: Star }
+    { value: '100+', label: t('stats.projects'), icon: Rocket },
+    { value: '50K+', label: t('stats.hoursSaved'), icon: Clock },
+    { value: '95%', label: t('stats.satisfaction'), icon: Star }
   ];
 
   return (
@@ -62,11 +65,11 @@ export default function HeroSection() {
         <FloatingLogo />
 
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-800 bg-neutral-950 mb-6">
-          <span className="text-sm text-neutral-400">Automatización con IA y n8n</span>
+          <span className="text-sm text-neutral-400">{t('hero.badge')}</span>
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-4 md:mb-6 leading-tight">
-          Automatizamos tu
+          {t('hero.title')}
         </h1>
         
         <div className="relative inline-block mb-8 md:mb-12">
@@ -79,8 +82,7 @@ export default function HeroSection() {
         </div>
 
         <p className="text-base sm:text-lg md:text-xl text-neutral-400 mb-8 md:mb-12 max-w-3xl mx-auto px-4 leading-relaxed">
-          Transformamos procesos manuales en flujos inteligentes con <span className="text-white font-semibold">n8n</span> e IA. 
-          Más tiempo para crecer, menos tiempo en tareas repetitivas.
+          {t('hero.description')}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center px-4 mb-12 md:mb-16">
@@ -89,7 +91,7 @@ export default function HeroSection() {
             className="group px-6 md:px-8 py-3 md:py-4 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-all text-sm md:text-base"
           >
             <span className="flex items-center justify-center gap-2">
-              Descubre cómo
+              {t('hero.cta')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </button>
@@ -99,7 +101,7 @@ export default function HeroSection() {
           >
             <span className="flex items-center justify-center gap-2">
               <Zap className="w-5 h-5" />
-              Hablar con experto
+              {t('hero.ctaSecondary')}
             </span>
           </button>
         </div>

@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
+import { LanguageProvider } from '@/components/LanguageProvider';
 
 const FigtreeFont = Figtree({ subsets: ["latin"] });
 
@@ -62,7 +63,9 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
       </head>
       <body className={FigtreeFont.className}>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
